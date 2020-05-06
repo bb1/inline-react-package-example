@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "emotion-theming";
 
@@ -42,6 +42,12 @@ const Dog1 = () => (
 );
 
 export default function MyComponent(props) {
+  const [x, setX] = useState(false);
+  const clickHandler = (e) => {
+    e.preventDefault();
+    setX(!x);
+  };
+  
   return (
     <ThemeProvider
       theme={(ancestorTheme = {}) => {
@@ -54,11 +60,15 @@ export default function MyComponent(props) {
           Im MyComponent, hi <Name>{props.name}</Name>, and my color comes from
           a theme
           <br />
-          Here are some pictures of dogs
+          <a href="#" onClick={clickHandler}>Here</a> are some pictures of dogs
         </div>
 
-        <Dog1 />
-        <Dog2 />
+        {x && (
+          <>
+            <Dog1 />
+            <Dog2 />
+          </>
+        )}
       </Container>
     </ThemeProvider>
   );
